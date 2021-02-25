@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.movieappfrontend.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="com.example.movieappfrontend.ui.moviedetail.MovieDetailFragment"
+        android:label="fragment_movie_detail"
+        tools:layout="@layout/fragment_movie_detail" />
+    <fragment
+        android:id="@+id/tvseriesFragment"
+        android:name="com.example.movieappfrontend.ui.tvseries.TvseriesFragment"
+        android:label="fragment_tvseries"
+        tools:layout="@layout/fragment_tvseries" />
+    <fragment
+        android:id="@+id/whishlistFragment"
+        android:name="com.example.movieappfrontend.ui.whishlist.WhishlistFragment"
+        android:label="fragment_whishlist"
+        tools:layout="@layout/fragment_whishlist" />
+</navigation>
