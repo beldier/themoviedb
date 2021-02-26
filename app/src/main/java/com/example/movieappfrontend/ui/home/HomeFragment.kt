@@ -36,6 +36,11 @@ class HomeFragment : Fragment() {
     private lateinit var upcomingMoviesAdapter: MoviesAdapter
     private lateinit var upcomingMoviesLayoutMgr: LinearLayoutManager
 
+    private lateinit var newMovies: RecyclerView
+    private lateinit var newMoviesAdapter: MoviesAdapter
+    private lateinit var newMoviesLayoutMgr: LinearLayoutManager
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -72,10 +77,28 @@ class HomeFragment : Fragment() {
             onError = ::onError
         )
 
+        newMovies = binding.newMovies
+        newMoviesLayoutMgr = LinearLayoutManager(
+            context,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+        newMovies.layoutManager = newMoviesLayoutMgr
+        newMoviesAdapter = MoviesAdapter(mutableListOf())
+        newMovies.adapter = newMoviesAdapter
+
+        MoviesRepository.getNewMovies(
+            onSuccess = ::onNewMoviesFetched,
+            onError = ::onError
+        )
+
+
         // Inflate the layout for this fragment
         return binding.root
     }
-
+    private fun onNewMoviesFetched(movies: List<Movie>) {
+        newMoviesAdapter.updateMovies(movies)
+    }
     private fun onUpcomingMoviesFetched(movies: List<Movie>) {
         upcomingMoviesAdapter.updateMovies(movies)
     }
