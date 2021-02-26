@@ -32,6 +32,10 @@ class HomeFragment : Fragment() {
     private lateinit var popularMovies: RecyclerView
     private lateinit var popularMoviesAdapter: MoviesAdapter
 
+    private lateinit var upcomingMovies: RecyclerView
+    private lateinit var upcomingMoviesAdapter: MoviesAdapter
+    private lateinit var upcomingMoviesLayoutMgr: LinearLayoutManager
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,8 +57,27 @@ class HomeFragment : Fragment() {
             onSuccess = ::onPopularMoviesFetched,
             onError = ::onError
         )
+
+        upcomingMovies = binding.upcomingMovies
+        upcomingMoviesLayoutMgr = LinearLayoutManager(
+            context,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+        upcomingMovies.layoutManager = upcomingMoviesLayoutMgr
+        upcomingMoviesAdapter = MoviesAdapter(mutableListOf())
+        upcomingMovies.adapter = upcomingMoviesAdapter
+        MoviesRepository.getUpcomingMovies(
+            onSuccess = ::onUpcomingMoviesFetched,
+            onError = ::onError
+        )
+
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    private fun onUpcomingMoviesFetched(movies: List<Movie>) {
+        upcomingMoviesAdapter.updateMovies(movies)
     }
     private fun onPopularMoviesFetched(movies: List<Movie>) {
         popularMoviesAdapter.updateMovies(movies)
