@@ -1,6 +1,11 @@
 package com.example.movieappfrontend.data.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "movie")
 data class Movie(
+    @PrimaryKey
     val id: String,
     val adult: Boolean? = false,
     val backdrop_path: String? = null,

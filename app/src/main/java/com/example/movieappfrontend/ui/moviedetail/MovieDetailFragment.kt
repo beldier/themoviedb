@@ -12,6 +12,8 @@ import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.movieappfrontend.R
+import com.example.movieappfrontend.data.local.db.AppDatabase
+import com.example.movieappfrontend.data.model.Movie
 import com.example.movieappfrontend.databinding.FragmentHomeBinding
 import com.example.movieappfrontend.databinding.FragmentMovieDetailBinding
 
@@ -33,7 +35,6 @@ class MovieDetailFragment : Fragment() {
     private lateinit var genres: TextView
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         val binding = DataBindingUtil.inflate<FragmentMovieDetailBinding>(
             inflater, R.layout.fragment_movie_detail, container, false
         )
@@ -46,6 +47,8 @@ class MovieDetailFragment : Fragment() {
         genres = binding.movieGenres
 
         populateDetails()
+
+
 
         return binding.root
     }
