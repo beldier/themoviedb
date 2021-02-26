@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.movieappfrontend.ui.home.HomeFragment"
-        android:label="fragment_home"
+        android:label="@string/home"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_movieDetailFragment"
@@ -17,16 +17,37 @@
     <fragment
         android:id="@+id/movieDetailFragment"
         android:name="com.example.movieappfrontend.ui.moviedetail.MovieDetailFragment"
-        android:label="fragment_movie_detail"
-        tools:layout="@layout/fragment_movie_detail" />
+        android:label="@string/movieDetails"
+        tools:layout="@layout/fragment_movie_detail" >
+        <argument
+            android:name="poster_path"
+            app:argType="string" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="popularity"
+            app:argType="float" />
+        <argument
+            android:name="release_date"
+            app:argType="string" />
+        <argument android:name="overview"
+            app:argType="string" />
+        <argument
+            android:name="backdrop_path"
+            app:argType="string" />
+        <argument
+            android:name="genres"
+            app:argType="string[]" />
+    </fragment>
     <fragment
         android:id="@+id/tvseriesFragment"
         android:name="com.example.movieappfrontend.ui.tvseries.TvseriesFragment"
-        android:label="fragment_tvseries"
+        android:label="@string/tvSeries"
         tools:layout="@layout/fragment_tvseries" />
     <fragment
         android:id="@+id/whishlistFragment"
         android:name="com.example.movieappfrontend.ui.whishlist.WhishlistFragment"
-        android:label="fragment_whishlist"
+        android:label="@string/whishlist"
         tools:layout="@layout/fragment_whishlist" />
 </navigation>

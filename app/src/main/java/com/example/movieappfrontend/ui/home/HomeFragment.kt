@@ -1,13 +1,13 @@
 package com.example.movieappfrontend.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Transformations.map
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +15,6 @@ import com.example.movieappfrontend.R
 import com.example.movieappfrontend.data.model.Movie
 import com.example.movieappfrontend.data.repository.MoviesRepository
 import com.example.movieappfrontend.databinding.FragmentHomeBinding
-import com.example.movieappfrontend.ui.moviedetail.MovieDetailFragment
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -55,7 +54,7 @@ class HomeFragment : Fragment() {
             LinearLayoutManager.HORIZONTAL,
             false
         )
-        popularMoviesAdapter = MoviesAdapter(listOf())
+        popularMoviesAdapter = MoviesAdapter(mutableListOf()) { movie -> showMovieDetails(movie) }
         popularMovies.adapter = popularMoviesAdapter
 
         MoviesRepository.getPopularMovies(
@@ -70,7 +69,7 @@ class HomeFragment : Fragment() {
             false
         )
         upcomingMovies.layoutManager = upcomingMoviesLayoutMgr
-        upcomingMoviesAdapter = MoviesAdapter(mutableListOf())
+        upcomingMoviesAdapter = MoviesAdapter(mutableListOf()) { movie -> showMovieDetails(movie) }
         upcomingMovies.adapter = upcomingMoviesAdapter
         MoviesRepository.getUpcomingMovies(
             onSuccess = ::onUpcomingMoviesFetched,
@@ -84,7 +83,7 @@ class HomeFragment : Fragment() {
             false
         )
         newMovies.layoutManager = newMoviesLayoutMgr
-        newMoviesAdapter = MoviesAdapter(mutableListOf())
+        newMoviesAdapter = MoviesAdapter(mutableListOf()) { movie -> showMovieDetails(movie) }
         newMovies.adapter = newMoviesAdapter
 
         MoviesRepository.getNewMovies(
@@ -96,15 +95,35 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         return binding.root
     }
+
+    private fun showMovieDetails(movie: Movie) {
+
+        var genres :List<String> =  ArrayList()
+        //movie.genres.forEach { genres+= it.name }
+        this.view?.findNavController()?.navigate(
+            HomeFragmentDirections.actionHomeFragmentToMovieDetailFragment(
+                movie.poster_path!! ,
+                movie.title!!,
+                movie.vote_average!!.toFloat(),
+                movie.release_date!!,
+                movie.overview!!,
+                movie.backdrop_path!!,
+                genres.toTypedArray()
+            )
+        )
+    }
+
     private fun onNewMoviesFetched(movies: List<Movie>) {
         newMoviesAdapter.updateMovies(movies)
     }
+
     private fun onUpcomingMoviesFetched(movies: List<Movie>) {
         upcomingMoviesAdapter.updateMovies(movies)
     }
+
     private fun onPopularMoviesFetched(movies: List<Movie>) {
         popularMoviesAdapter.updateMovies(movies)
-        }
+    }
 
     private fun onError() {
         Toast.makeText(context, "ERROR fetching movies", Toast.LENGTH_SHORT).show()

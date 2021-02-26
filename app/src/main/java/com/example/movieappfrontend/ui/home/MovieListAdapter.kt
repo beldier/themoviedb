@@ -1,4 +1,4 @@
-package com.example.movieappfrontend.ui.home
+    package com.example.movieappfrontend.ui.home
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +11,8 @@ import com.example.movieappfrontend.R
 import com.example.movieappfrontend.data.model.Movie
 
 class MoviesAdapter(
-    private var movies: List<Movie>
+    private var movies: List<Movie>,
+    private val onMovieClick: (movie: Movie) -> Unit
 ) : RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -41,6 +42,7 @@ class MoviesAdapter(
                 .load("https://image.tmdb.org/t/p/w342${movie.poster_path}")
                 .transform(CenterCrop())
                 .into(poster)
+            itemView.setOnClickListener { onMovieClick.invoke(movie) }
         }
     }
 }

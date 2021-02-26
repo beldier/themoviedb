@@ -2,4 +2,14 @@
     <string name="app_name">MovieAppFrontend</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="popular">Popular</string>
+    <string name="most_popular_movies">Most popular movies</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="see_incoming_movies">See incoming movies</string>
+    <string name="new_movies">New movies</string>
+    <string name="new_movies_in_the_app">New movies in the app</string>
+    <string name="home">Home</string>
+    <string name="movieDetails">Movie details</string>
+    <string name="tvSeries">TV series</string>
+    <string name="whishlist">Whishlist</string>
 </resources>

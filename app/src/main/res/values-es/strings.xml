@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">MovieAppFrontend</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="popular">Popular</string>
+    <string name="most_popular_movies">Peliculas mas populares</string>
+    <string name="upcoming">Proximamente</string>
+    <string name="see_incoming_movies">Ver proximas peliculas</string>
+    <string name="new_movies">Peliculas nuevas</string>
+    <string name="new_movies_in_the_app">Nuevas peliculas en la plataforma</string>
+    <string name="home">Home</string>
+    <string name="movieDetails">Detalles de la pelicula</string>
+    <string name="tvSeries">Series de television</string>
+    <string name="whishlist">Lista de deseos</string>
+</resources>

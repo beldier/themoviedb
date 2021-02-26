@@ -5,54 +5,71 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.RatingBar
+import android.widget.TextView
+import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.movieappfrontend.R
+import com.example.movieappfrontend.databinding.FragmentHomeBinding
+import com.example.movieappfrontend.databinding.FragmentMovieDetailBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+const val MOVIE_BACKDROP = "extra_movie_backdrop"
+const val MOVIE_POSTER = "extra_movie_poster"
+const val MOVIE_TITLE = "extra_movie_title"
+const val MOVIE_RATING = "extra_movie_rating"
+const val MOVIE_RELEASE_DATE = "extra_movie_release_date"
+const val MOVIE_OVERVIEW = "extra_movie_overview"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [MovieDetailFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class MovieDetailFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+    private lateinit var backdrop: ImageView
+    private lateinit var poster: ImageView
+    private lateinit var title: TextView
+    private lateinit var rating: RatingBar
+    private lateinit var releaseDate: TextView
+    private lateinit var overview: TextView
+    private lateinit var genres: TextView
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movie_detail, container, false)
+        val binding = DataBindingUtil.inflate<FragmentMovieDetailBinding>(
+            inflater, R.layout.fragment_movie_detail, container, false
+        )
+        backdrop = binding.movieBackdrop
+        poster = binding.moviePoster
+        title = binding.movieTitle
+        rating = binding.movieRating
+        releaseDate = binding.movieReleaseDate
+        overview = binding.movieOverview
+        genres = binding.movieGenres
+
+        populateDetails()
+
+        return binding.root
+    }
+    private fun populateDetails() {
+        val args = MovieDetailFragmentArgs.fromBundle(requireArguments())
+        args.backdropPath?.let { backdropPath ->
+            Glide.with(this)
+                .load("https://image.tmdb.org/t/p/w1280$backdropPath")
+                .transform(CenterCrop())
+                .into(backdrop)
+        }
+
+        args.posterPath?.let { posterPath ->
+            Glide.with(this)
+                .load("https://image.tmdb.org/t/p/w342$posterPath")
+                .transform(CenterCrop())
+                .into(poster)
+        }
+
+        title.text = args.title
+        rating.rating = args.popularity / 2
+        releaseDate.text = args.releaseDate
+        overview.text = args.overview
+        genres.text = args.genres.joinToString()
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MovieDetailFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-                MovieDetailFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
-                }
-    }
 }

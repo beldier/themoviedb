@@ -1,6 +1,6 @@
 package com.example.movieappfrontend.data.model
 
-data class Movie(
+data class Series (
     val id: String,
     val adult: Boolean? = false,
     val backdrop_path: String? = null,

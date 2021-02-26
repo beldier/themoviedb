@@ -28,8 +28,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Popular"
-                android:textColor="@android:color/white"
+                android:text="@string/popular"
+                android:textColor="@android:color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Most popular movies" />
+                android:text="@string/most_popular_movies" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/popular_movies"
@@ -55,8 +55,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Upcoming"
-                android:textColor="@android:color/white"
+                android:text="@string/upcoming"
+                android:textColor="@android:color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="See incoming movies" />
+                android:text="@string/see_incoming_movies" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/upcoming_movies"
@@ -84,8 +84,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="New movies"
-                android:textColor="@android:color/white"
+                android:text="@string/new_movies"
+                android:textColor="@android:color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="New movies in the app" />
+                android:text="@string/new_movies_in_the_app" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/new_movies"
