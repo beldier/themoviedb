@@ -12,4 +12,6 @@
     <string name="movieDetails">Detalles de la pelicula</string>
     <string name="tvSeries">Series de television</string>
     <string name="whishlist">Lista de deseos</string>
+    <string name="see_upcoming_series">Ver las series proximas</string>
+    <string name="most_popular_series">Las series mas populares</string>
 </resources>

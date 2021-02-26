@@ -7,7 +7,6 @@
     tools:context="com.example.android.navigation.HomeFragment">
 
     <data>
-
         <variable
             name="home"
             type="com.example.movieappfrontend.ui.home.HomeFragment" />

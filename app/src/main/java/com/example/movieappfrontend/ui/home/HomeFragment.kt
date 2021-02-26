@@ -91,8 +91,6 @@ class HomeFragment : Fragment() {
             onError = ::onError
         )
 
-
-        // Inflate the layout for this fragment
         return binding.root
     }
 

@@ -12,4 +12,6 @@
     <string name="movieDetails">Movie details</string>
     <string name="tvSeries">TV series</string>
     <string name="whishlist">Whishlist</string>
+    <string name="see_upcoming_series">See upcoming series</string>
+    <string name="most_popular_series">Most popular series</string>
 </resources>

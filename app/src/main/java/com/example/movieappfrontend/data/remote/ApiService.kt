@@ -23,6 +23,18 @@ interface ApiService {
         @Query("page") page: Int
     ): Call<GetMoviesResponse>
 
+    @GET("tv/popular")
+    fun getPopularTvSeries(
+        @Query("api_key") apiKey: String = api_key,
+        @Query("page") page: Int
+    ): Call<GetMoviesResponse>
+
+    @GET("tv/top_rated")
+    fun getTopRatedTvSeries(
+        @Query("api_key") apiKey: String = api_key,
+        @Query("page") page: Int
+    ): Call<GetMoviesResponse>
+
     companion object {
         const val api_key ="d426eba4a0a3c35c0e882c10af323565"
     }
