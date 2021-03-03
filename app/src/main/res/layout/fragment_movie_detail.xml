@@ -23,8 +23,10 @@
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="@+id/backdrop_guideline"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/movie_poster_card"
@@ -108,6 +110,15 @@
                 android:layout_height="22dp"
                 app:layout_constraintStart_toStartOf="@+id/movie_release_date"
                 app:layout_constraintTop_toBottomOf="@+id/movie_release_date" />
+
+            <ImageButton
+                android:id="@+id/favouriteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:drawable/btn_star_big_off" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>
