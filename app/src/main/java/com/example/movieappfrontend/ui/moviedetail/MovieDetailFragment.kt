@@ -12,6 +12,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -39,13 +40,31 @@ class MovieDetailFragment : Fragment() {
     private lateinit var releaseDate: TextView
     private lateinit var overview: TextView
     private lateinit var genres: TextView
-    private var isFavourite = false
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<FragmentMovieDetailBinding>(
             inflater, R.layout.fragment_movie_detail, container, false
         )
+        bindFields(binding)
+
         viewModel = ViewModelProvider(this).get(MovieDetailViewModel::class.java)
+
+        viewModel.isFavourite.observe(viewLifecycleOwner, Observer { isFavourite ->
+            if (isFavourite)
+                binding.favouriteButton.setImageResource(android.R.drawable.btn_star_big_on)
+            else
+                binding.favouriteButton.setImageResource(android.R.drawable.btn_star_big_off)
+        })
+
+        binding.favouriteButton.setOnClickListener{
+            viewModel.clickFavouriteButton()
+        }
+
+        populateDetails()
+
+        return binding.root
+    }
+    private fun bindFields(binding: FragmentMovieDetailBinding){
         backdrop = binding.movieBackdrop
         poster = binding.moviePoster
         title = binding.movieTitle
@@ -53,17 +72,6 @@ class MovieDetailFragment : Fragment() {
         releaseDate = binding.movieReleaseDate
         overview = binding.movieOverview
         genres = binding.movieGenres
-
-        binding.favouriteButton.setOnClickListener{
-            isFavourite = !isFavourite
-            if(isFavourite)
-                binding.favouriteButton.setImageResource(android.R.drawable.btn_star_big_on)
-            else
-                binding.favouriteButton.setImageResource(android.R.drawable.btn_star_big_off)
-        }
-        populateDetails()
-
-        return binding.root
     }
     private fun populateDetails() {
         val args = MovieDetailFragmentArgs.fromBundle(requireArguments())
