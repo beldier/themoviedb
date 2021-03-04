@@ -2,11 +2,16 @@ package com.example.movieappfrontend.ui.moviedetail
 
 import android.app.Application
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.movieappfrontend.data.local.dao.MovieDao
+import com.example.movieappfrontend.data.model.CastPerson
+import com.example.movieappfrontend.data.model.CrewPerson
 import com.example.movieappfrontend.data.model.Movie
+import com.example.movieappfrontend.data.model.MovieCredits
+import com.example.movieappfrontend.data.repository.MoviesRepository
 import kotlinx.coroutines.*
 
 class MovieDetailViewModel(
@@ -20,11 +25,34 @@ class MovieDetailViewModel(
     val isFavourite: LiveData<Boolean>
         get() = _isFavourite
 
+    private val _director = MutableLiveData<String>()
+    val director :  LiveData<String>
+        get() = _director
+
     init {
         _isFavourite.value = false
+        _director.value = ""
+
         movie.title?.let { Log.i("moviedetail", it) }
+        MoviesRepository.getMovieCredits(
+            onSuccess = ::onMovieCreditsFetched,
+            onError = ::onError,
+            id = localMovie.id
+        )
         initializeMovie()
     }
+
+    private fun onMovieCreditsFetched(movieCredits: MovieCredits) {
+        var crewPersonList = movieCredits.crewList
+        var movieDirector: CrewPerson? = crewPersonList?.firstOrNull{ it.known_for_department == "Directing" && it.job =="Director" }
+        if (movieDirector != null) {
+            _director.value = movieDirector.name
+        }
+    }
+    private fun onError() {
+        Log.i( "movieDetail","ERROR fetching movies")
+    }
+
 
     fun clickFavouriteButton() {
         uiScope.launch {

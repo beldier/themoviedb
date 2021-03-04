@@ -19,6 +19,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.movieappfrontend.R
 import com.example.movieappfrontend.data.local.db.AppDatabase
 import com.example.movieappfrontend.data.model.Movie
+import com.example.movieappfrontend.data.repository.MoviesRepository
 import com.example.movieappfrontend.databinding.FragmentHomeBinding
 import com.example.movieappfrontend.databinding.FragmentMovieDetailBinding
 
@@ -41,6 +42,7 @@ class MovieDetailFragment : Fragment() {
     private lateinit var releaseDate: TextView
     private lateinit var overview: TextView
     private lateinit var genres: TextView
+    private lateinit var director : TextView
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<FragmentMovieDetailBinding>(
@@ -61,6 +63,10 @@ class MovieDetailFragment : Fragment() {
                 binding.favouriteButton.setImageResource(android.R.drawable.btn_star_big_off)
         })
 
+        viewModel.director.observe(viewLifecycleOwner, Observer { directorText ->
+            director.text = directorText
+        })
+
         binding.favouriteButton.setOnClickListener{
             viewModel.clickFavouriteButton()
         }
@@ -69,6 +75,8 @@ class MovieDetailFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.movieDetailViewModel = viewModel
         populateDetails()
+
+
 
         return binding.root
     }
@@ -80,6 +88,7 @@ class MovieDetailFragment : Fragment() {
         releaseDate = binding.movieReleaseDate
         overview = binding.movieOverview
         genres = binding.movieGenres
+        director = binding.directorText
     }
     private fun populateDetails() {
         val args = MovieDetailFragmentArgs.fromBundle(requireArguments())

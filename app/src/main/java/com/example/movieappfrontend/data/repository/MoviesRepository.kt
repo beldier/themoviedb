@@ -1,8 +1,9 @@
 package com.example.movieappfrontend.data.repository
 
-import android.util.Log
 import com.example.movieappfrontend.data.model.Movie
+import com.example.movieappfrontend.data.model.MovieCredits
 import com.example.movieappfrontend.data.remote.ApiService
+import com.example.movieappfrontend.data.remote.GetMovieCreditsResponse
 import com.example.movieappfrontend.data.remote.GetMoviesResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,9 +26,11 @@ object MoviesRepository {
 
     }
 
-    fun getPopularMovies(page: Int = 1,
-                         onSuccess: (movies: List<Movie>) -> Unit,
-                         onError: () -> Unit) {
+    fun getPopularMovies(
+        page: Int = 1,
+        onSuccess: (movies: List<Movie>) -> Unit,
+        onError: () -> Unit
+    ) {
         api.getPopularMovies(page = page)
             .enqueue(object : Callback<GetMoviesResponse> {
                 override fun onResponse(
@@ -108,6 +111,41 @@ object MoviesRepository {
                 }
 
                 override fun onFailure(call: Call<GetMoviesResponse>, t: Throwable) {
+                    onError.invoke()
+                }
+            })
+    }
+
+    fun getMovieCredits(
+        onSuccess: (movieCredits: MovieCredits) -> Unit,
+        onError: () -> Unit,
+        id: String
+    ) {
+        api.getMovieCredits(idMovie = id)
+            .enqueue(object : Callback<GetMovieCreditsResponse> {
+                override fun onResponse(
+                    call: Call<GetMovieCreditsResponse>,
+                    response: Response<GetMovieCreditsResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody != null) {
+                            onSuccess.invoke(
+                                MovieCredits(
+                                    id = responseBody.idMovie,
+                                    castLists = responseBody.castPersonList,
+                                    crewList = responseBody.crewPersonList
+                                )
+                            )
+                        } else {
+                            onError.invoke()
+                        }
+                    } else {
+                        onError.invoke()
+                    }
+                }
+
+                override fun onFailure(call: Call<GetMovieCreditsResponse>, t: Throwable) {
                     onError.invoke()
                 }
             })

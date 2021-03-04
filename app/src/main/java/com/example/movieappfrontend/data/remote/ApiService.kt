@@ -2,6 +2,7 @@ package com.example.movieappfrontend.data.remote
 
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -35,7 +36,13 @@ interface ApiService {
         @Query("page") page: Int
     ): Call<GetMoviesResponse>
 
+    @GET("movie/{id}}/credits")
+    fun getMovieCredits(
+        @Path(value = "id", encoded = false) idMovie: String,
+        @Query("api_key") apiKey: String = api_key
+    ): Call<GetMovieCreditsResponse>
+
     companion object {
-        const val api_key ="d426eba4a0a3c35c0e882c10af323565"
+        const val api_key = "d426eba4a0a3c35c0e882c10af323565"
     }
 }
