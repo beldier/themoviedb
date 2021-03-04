@@ -1,16 +1,19 @@
 package com.example.movieappfrontend.ui.moviedetail
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MovieDetailViewModel : ViewModel() {
-    var isFavourite =  MutableLiveData<Boolean>()
+    private val _isFavourite =  MutableLiveData<Boolean>()
+    val isFavourite :LiveData<Boolean>
+        get() = _isFavourite
 
     init {
-        isFavourite.value = false
+        _isFavourite.value = false
     }
     fun clickFavouriteButton()
     {
-        isFavourite.value = (isFavourite.value)?.not()
+        _isFavourite.value = (_isFavourite.value)?.not()
     }
 }

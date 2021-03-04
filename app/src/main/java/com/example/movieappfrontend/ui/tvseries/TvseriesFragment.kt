@@ -75,17 +75,11 @@ class TvseriesFragment : Fragment() {
 
     private fun showMovieDetails(movie: Movie) {
 
-        var genres :List<String> =  ArrayList()
+        var genres: List<String> = ArrayList()
         //movie.genres.forEach { genres+= it.name }
         this.view?.findNavController()?.navigate(
             HomeFragmentDirections.actionHomeFragmentToMovieDetailFragment(
-                movie.poster_path!! ,
-                movie.title!!,
-                movie.vote_average!!.toFloat(),
-                movie.release_date!!,
-                movie.overview!!,
-                movie.backdrop_path!!,
-                genres.toTypedArray()
+                movie
             )
         )
     }

@@ -20,25 +20,8 @@
         android:label="@string/movieDetails"
         tools:layout="@layout/fragment_movie_detail" >
         <argument
-            android:name="poster_path"
-            app:argType="string" />
-        <argument
-            android:name="title"
-            app:argType="string" />
-        <argument
-            android:name="popularity"
-            app:argType="float" />
-        <argument
-            android:name="release_date"
-            app:argType="string" />
-        <argument android:name="overview"
-            app:argType="string" />
-        <argument
-            android:name="backdrop_path"
-            app:argType="string" />
-        <argument
-            android:name="genres"
-            app:argType="string[]" />
+            android:name="movie"
+            app:argType="com.example.movieappfrontend.data.model.Movie" />
     </fragment>
     <fragment
         android:id="@+id/tvseriesFragment"

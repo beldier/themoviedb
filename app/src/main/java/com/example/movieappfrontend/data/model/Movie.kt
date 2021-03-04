@@ -1,8 +1,11 @@
 package com.example.movieappfrontend.data.model
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity(tableName = "movie")
 data class Movie(
     @PrimaryKey
@@ -28,4 +31,4 @@ data class Movie(
     val vote_count: Int? = null,
     var isFavorite: Boolean? = false,
     val genres: List<Genre> = ArrayList()
-)
+):Parcelable

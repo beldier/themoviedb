@@ -75,25 +75,25 @@ class MovieDetailFragment : Fragment() {
     }
     private fun populateDetails() {
         val args = MovieDetailFragmentArgs.fromBundle(requireArguments())
-        args.backdropPath?.let { backdropPath ->
+        args.movie?.let { movie ->
             Glide.with(this)
-                .load("https://image.tmdb.org/t/p/w1280$backdropPath")
+                .load("https://image.tmdb.org/t/p/w1280${movie.backdrop_path}")
                 .transform(CenterCrop())
                 .into(backdrop)
         }
 
-        args.posterPath?.let { posterPath ->
+        args.movie?.let { movie ->
             Glide.with(this)
-                .load("https://image.tmdb.org/t/p/w342$posterPath")
+                .load("https://image.tmdb.org/t/p/w342${movie.poster_path}")
                 .transform(CenterCrop())
                 .into(poster)
         }
 
-        title.text = args.title
-        rating.rating = args.popularity / 2
-        releaseDate.text = args.releaseDate
-        overview.text = args.overview
-        genres.text = args.genres.joinToString()
+        title.text = args.movie.title
+        rating.rating = (args.movie.popularity?.toFloat())!! / 2
+        releaseDate.text = args.movie.release_date
+        overview.text = args.movie.overview
+//        genres.text = args.movie.genres.joinToString()
     }
 
 }
