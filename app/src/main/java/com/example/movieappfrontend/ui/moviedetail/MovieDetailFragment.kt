@@ -33,6 +33,7 @@ const val MOVIE_OVERVIEW = "extra_movie_overview"
 class MovieDetailFragment : Fragment() {
 
     private lateinit var viewModel : MovieDetailViewModel
+    private lateinit var viewModelFactory: MovieDetailViewModelFactory
     private lateinit var backdrop: ImageView
     private lateinit var poster: ImageView
     private lateinit var title: TextView
@@ -47,8 +48,8 @@ class MovieDetailFragment : Fragment() {
         )
         bindFields(binding)
 
-        viewModel = ViewModelProvider(this).get(MovieDetailViewModel::class.java)
-
+        viewModelFactory = MovieDetailViewModelFactory(MovieDetailFragmentArgs.fromBundle(requireArguments()).movie)
+        viewModel = ViewModelProvider(this,viewModelFactory).get(MovieDetailViewModel::class.java)
         viewModel.isFavourite.observe(viewLifecycleOwner, Observer { isFavourite ->
             if (isFavourite)
                 binding.favouriteButton.setImageResource(android.R.drawable.btn_star_big_on)
