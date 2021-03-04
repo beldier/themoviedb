@@ -47,9 +47,13 @@ class MovieDetailFragment : Fragment() {
             inflater, R.layout.fragment_movie_detail, container, false
         )
         bindFields(binding)
+        val application = requireNotNull(this.activity).application
 
-        viewModelFactory = MovieDetailViewModelFactory(MovieDetailFragmentArgs.fromBundle(requireArguments()).movie)
+        val dataSource = AppDatabase.getInstance(application).movieDao()
+
+        viewModelFactory = MovieDetailViewModelFactory(dataSource,application,MovieDetailFragmentArgs.fromBundle(requireArguments()).movie)
         viewModel = ViewModelProvider(this,viewModelFactory).get(MovieDetailViewModel::class.java)
+
         viewModel.isFavourite.observe(viewLifecycleOwner, Observer { isFavourite ->
             if (isFavourite)
                 binding.favouriteButton.setImageResource(android.R.drawable.btn_star_big_on)
@@ -61,6 +65,9 @@ class MovieDetailFragment : Fragment() {
             viewModel.clickFavouriteButton()
         }
 
+
+        binding.lifecycleOwner = this
+        binding.movieDetailViewModel = viewModel
         populateDetails()
 
         return binding.root

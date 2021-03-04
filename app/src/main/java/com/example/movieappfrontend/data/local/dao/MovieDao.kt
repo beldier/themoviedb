@@ -9,7 +9,7 @@ import com.example.movieappfrontend.data.model.Movie
 interface MovieDao {
 
     @Query("SELECT * FROM movie WHERE movie.id = :id")
-     fun getMovie(id: String): Movie?
+     fun getMovie(id: String): Movie
 
     @Insert
      fun insert(movie:Movie)

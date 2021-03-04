@@ -6,6 +6,9 @@
         <variable
             name="movieDetail"
             type="com.example.movieappfrontend.ui.moviedetail.MovieDetailFragment" />
+        <variable
+            name="movieDetailViewModel"
+            type="com.example.movieappfrontend.ui.moviedetail.MovieDetailViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView

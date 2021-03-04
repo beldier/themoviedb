@@ -29,6 +29,6 @@ data class Movie(
     val video: Boolean? = false,
     val vote_average: Double? = null,
     val vote_count: Int? = null,
-    var isFavorite: Boolean? = false,
-    val genres: List<Genre> = ArrayList()
+    var isFavorite: Boolean? = false
+//    val genres: List<Genre> = ArrayList()
 ):Parcelable
