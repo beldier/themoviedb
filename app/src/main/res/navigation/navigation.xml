@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_movieDetailFragment"
             app:destination="@id/movieDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_movieSearchFragment"
+            app:destination="@id/movieSearchFragment" />
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
@@ -33,4 +36,13 @@
         android:name="com.example.movieappfrontend.ui.whishlist.WhishlistFragment"
         android:label="@string/whishlist"
         tools:layout="@layout/fragment_whishlist" />
+    <fragment
+        android:id="@+id/movieSearchFragment"
+        android:name="com.example.movieappfrontend.ui.search.MovieSearchFragment"
+        android:label="@string/search"
+        tools:layout="@layout/fragment_movie_search">
+        <argument
+            android:name="queryString"
+            app:argType="string" />
+    </fragment>
 </navigation>
