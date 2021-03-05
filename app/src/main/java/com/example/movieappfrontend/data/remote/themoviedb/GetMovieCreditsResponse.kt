@@ -1,7 +1,7 @@
-package com.example.movieappfrontend.data.remote
+package com.example.movieappfrontend.data.remote.themoviedb
 
-import com.example.movieappfrontend.data.model.CastPerson
-import com.example.movieappfrontend.data.model.CrewPerson
+import com.example.movieappfrontend.data.model.themoviedb.CastPerson
+import com.example.movieappfrontend.data.model.themoviedb.CrewPerson
 import com.google.gson.annotations.SerializedName
 
 data class GetMovieCreditsResponse(

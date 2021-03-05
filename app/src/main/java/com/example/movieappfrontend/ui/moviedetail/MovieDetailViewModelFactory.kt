@@ -4,8 +4,7 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.movieappfrontend.data.local.dao.MovieDao
-import com.example.movieappfrontend.data.model.Movie
-import com.example.movieappfrontend.data.repository.MoviesRepository
+import com.example.movieappfrontend.data.model.themoviedb.Movie
 import java.lang.IllegalArgumentException
 
 class MovieDetailViewModelFactory(private val dataSource: MovieDao, private val application: Application,private val movie: Movie): ViewModelProvider.Factory {

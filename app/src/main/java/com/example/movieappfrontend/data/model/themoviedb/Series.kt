@@ -1,4 +1,6 @@
-package com.example.movieappfrontend.data.model
+package com.example.movieappfrontend.data.model.themoviedb
+
+import com.example.movieappfrontend.data.model.themoviedb.Genre
 
 data class Series (
     val id: String,

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.movieappfrontend.R
-import com.example.movieappfrontend.data.model.Movie
+import com.example.movieappfrontend.data.model.themoviedb.Movie
 
 class MoviesAdapter(
     private var movies: List<Movie>,

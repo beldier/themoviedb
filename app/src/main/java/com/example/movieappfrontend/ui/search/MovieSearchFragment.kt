@@ -11,13 +11,11 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieappfrontend.R
-import com.example.movieappfrontend.data.model.Movie
-import com.example.movieappfrontend.data.repository.MoviesRepository
+import com.example.movieappfrontend.data.model.themoviedb.Movie
+import com.example.movieappfrontend.data.repository.themoviedb.MoviesRepository
 import com.example.movieappfrontend.databinding.FragmentMovieSearchBinding
 import com.example.movieappfrontend.ui.home.HomeFragmentDirections
 import com.example.movieappfrontend.ui.home.MoviesAdapter
-import com.example.movieappfrontend.ui.moviedetail.MovieDetailFragmentArgs
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MovieSearchFragment : Fragment() {

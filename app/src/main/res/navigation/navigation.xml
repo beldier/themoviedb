@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_movie_detail" >
         <argument
             android:name="movie"
-            app:argType="com.example.movieappfrontend.data.model.Movie" />
+            app:argType="com.example.movieappfrontend.data.model.themoviedb.Movie" />
     </fragment>
     <fragment
         android:id="@+id/tvseriesFragment"

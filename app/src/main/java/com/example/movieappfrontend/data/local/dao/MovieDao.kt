@@ -3,7 +3,7 @@ package com.example.movieappfrontend.data.local.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.movieappfrontend.data.model.Movie
+import com.example.movieappfrontend.data.model.themoviedb.Movie
 
 @Dao
 interface MovieDao {
@@ -12,7 +12,7 @@ interface MovieDao {
      fun getMovie(id: String): Movie
 
     @Insert
-     fun insert(movie:Movie)
+     fun insert(movie: Movie)
 
     @Query("DELETE FROM movie WHERE id = :id")
      fun deleteMovie(id: String)

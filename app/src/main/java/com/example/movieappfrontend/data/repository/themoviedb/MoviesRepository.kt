@@ -1,10 +1,10 @@
-package com.example.movieappfrontend.data.repository
+package com.example.movieappfrontend.data.repository.themoviedb
 
-import com.example.movieappfrontend.data.model.Movie
-import com.example.movieappfrontend.data.model.MovieCredits
-import com.example.movieappfrontend.data.remote.ApiService
-import com.example.movieappfrontend.data.remote.GetMovieCreditsResponse
-import com.example.movieappfrontend.data.remote.GetMoviesResponse
+import com.example.movieappfrontend.data.model.themoviedb.Movie
+import com.example.movieappfrontend.data.model.themoviedb.MovieCredits
+import com.example.movieappfrontend.data.remote.themoviedb.ApiService
+import com.example.movieappfrontend.data.remote.themoviedb.GetMovieCreditsResponse
+import com.example.movieappfrontend.data.remote.themoviedb.GetMoviesResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,7 +21,8 @@ object MoviesRepository {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        api = retrofit.create(ApiService::class.java)
+        api = retrofit.create(
+            ApiService::class.java)
 
 
     }
@@ -151,6 +152,35 @@ object MoviesRepository {
             })
     }
 
+    fun fetchMovieById(
+        onSuccess: (movie: Movie) -> Unit,
+        onError: () -> Unit,
+        id: String
+    ) {
+        api.getMovieById(idMovie = id)
+            .enqueue(object : Callback<Movie> {
+                override fun onResponse(
+                    call: Call<Movie>,
+                    response: Response<Movie>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody != null) {
+                            onSuccess.invoke(
+                                responseBody
+                            )
+                        } else {
+                            onError.invoke()
+                        }
+                    } else {
+                        onError.invoke()
+                    }
+                }
+                override fun onFailure(call: Call<Movie>, t: Throwable) {
+                    onError.invoke()
+                }
+            })
+    }
     fun fetchSearchMovies(
         page: Int = 1,
         onSuccess: (movies: List<Movie>) -> Unit,

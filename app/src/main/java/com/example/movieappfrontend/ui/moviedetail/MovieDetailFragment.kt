@@ -1,8 +1,6 @@
 package com.example.movieappfrontend.ui.moviedetail
 
-import android.graphics.Color.green
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -18,9 +15,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.movieappfrontend.R
 import com.example.movieappfrontend.data.local.db.AppDatabase
-import com.example.movieappfrontend.data.model.Movie
-import com.example.movieappfrontend.data.repository.MoviesRepository
-import com.example.movieappfrontend.databinding.FragmentHomeBinding
 import com.example.movieappfrontend.databinding.FragmentMovieDetailBinding
 
 const val MOVIE_BACKDROP = "extra_movie_backdrop"
@@ -43,6 +37,7 @@ class MovieDetailFragment : Fragment() {
     private lateinit var overview: TextView
     private lateinit var genres: TextView
     private lateinit var director : TextView
+    private lateinit var cast : TextView
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<FragmentMovieDetailBinding>(
@@ -63,6 +58,12 @@ class MovieDetailFragment : Fragment() {
                 binding.favouriteButton.setImageResource(android.R.drawable.btn_star_big_off)
         })
 
+        viewModel.cast.observe(viewLifecycleOwner, Observer { casting ->
+            cast.text = casting
+        })
+        viewModel.genres.observe(viewLifecycleOwner, Observer { genres ->
+            releaseDate.text = genres
+        })
         viewModel.director.observe(viewLifecycleOwner, Observer { directorText ->
             director.text = directorText
         })
@@ -89,6 +90,7 @@ class MovieDetailFragment : Fragment() {
         overview = binding.movieOverview
         genres = binding.movieGenres
         director = binding.directorText
+        cast = binding.castText
     }
     private fun populateDetails() {
         val args = MovieDetailFragmentArgs.fromBundle(requireArguments())

@@ -1,4 +1,4 @@
-package com.example.movieappfrontend.data.model
+package com.example.movieappfrontend.data.model.themoviedb
 
 import android.os.Parcelable
 import androidx.room.Entity

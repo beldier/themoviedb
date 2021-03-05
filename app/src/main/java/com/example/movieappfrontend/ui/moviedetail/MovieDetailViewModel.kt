@@ -2,21 +2,20 @@ package com.example.movieappfrontend.ui.moviedetail
 
 import android.app.Application
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.movieappfrontend.data.local.dao.MovieDao
-import com.example.movieappfrontend.data.model.CastPerson
-import com.example.movieappfrontend.data.model.CrewPerson
-import com.example.movieappfrontend.data.model.Movie
-import com.example.movieappfrontend.data.model.MovieCredits
-import com.example.movieappfrontend.data.repository.MoviesRepository
+import com.example.movieappfrontend.data.model.themoviedb.CrewPerson
+import com.example.movieappfrontend.data.model.themoviedb.Movie
+import com.example.movieappfrontend.data.model.themoviedb.MovieCredits
+import com.example.movieappfrontend.data.repository.themoviedb.MoviesRepository
 import kotlinx.coroutines.*
 
 class MovieDetailViewModel(
     val database: MovieDao, application: Application, movie: Movie
 ) : AndroidViewModel(application) {
+
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private val localMovie = movie
@@ -29,6 +28,13 @@ class MovieDetailViewModel(
     val director :  LiveData<String>
         get() = _director
 
+    private val _genres = MutableLiveData<String>()
+    val genres : LiveData<String>
+        get() = _genres
+
+    private val _cast = MutableLiveData<String>()
+    val cast :LiveData<String>
+        get() = _cast
     init {
         _isFavourite.value = false
         _director.value = ""
@@ -39,7 +45,32 @@ class MovieDetailViewModel(
             onError = ::onError,
             id = localMovie.id
         )
+        MoviesRepository.fetchMovieById(
+            onSuccess = ::onMovieByIDFectched,
+            onError = ::onError,
+            id = localMovie.id
+        )
+
         initializeMovie()
+    }
+
+    private fun onMovieByIDFectched(movie : com.example.movieappfrontend.data.model.themoviedb.Movie)
+    {
+        movie.imdb_id?.let { Log.i("movieDetails", it) }
+        movie.imdb_id?.let {
+            com.example.movieappfrontend.data.repository.omdb.MoviesRepository.fetchMovie(
+                onSuccess = ::onMovieOmdbFectched,
+                onError = ::onError,
+                id = it
+            )
+        }
+
+
+    }
+
+    private fun onMovieOmdbFectched(movie: com.example.movieappfrontend.data.model.omdb.Movie) {
+        _genres.value = movie.genre
+        _cast.value = movie.actors
     }
 
     private fun onMovieCreditsFetched(movieCredits: MovieCredits) {

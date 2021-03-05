@@ -1,8 +1,8 @@
-package com.example.movieappfrontend.data.repository
+package com.example.movieappfrontend.data.repository.themoviedb
 
-import com.example.movieappfrontend.data.model.Movie
-import com.example.movieappfrontend.data.remote.ApiService
-import com.example.movieappfrontend.data.remote.GetMoviesResponse
+import com.example.movieappfrontend.data.model.themoviedb.Movie
+import com.example.movieappfrontend.data.remote.themoviedb.ApiService
+import com.example.movieappfrontend.data.remote.themoviedb.GetMoviesResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,13 +19,14 @@ object TvSeriesRepository {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        api = retrofit.create(ApiService::class.java)
+        api = retrofit.create(
+            ApiService::class.java)
     }
 
     fun getPopularTvSeries(page: Int = 1,
-                         onSuccess: (movies: List<Movie>) -> Unit,
-                         onError: () -> Unit) {
-        TvSeriesRepository.api.getPopularTvSeries(page = page)
+                           onSuccess: (movies: List<Movie>) -> Unit,
+                           onError: () -> Unit) {
+        api.getPopularTvSeries(page = page)
             .enqueue(object : Callback<GetMoviesResponse> {
                 override fun onResponse(
                     call: Call<GetMoviesResponse>,
@@ -51,9 +52,9 @@ object TvSeriesRepository {
     }
 
     fun getTopRatedTvSeries(page: Int = 1,
-                           onSuccess: (movies: List<Movie>) -> Unit,
-                           onError: () -> Unit) {
-        TvSeriesRepository.api.getTopRatedTvSeries(page = page)
+                            onSuccess: (movies: List<Movie>) -> Unit,
+                            onError: () -> Unit) {
+        api.getTopRatedTvSeries(page = page)
             .enqueue(object : Callback<GetMoviesResponse> {
                 override fun onResponse(
                     call: Call<GetMoviesResponse>,
